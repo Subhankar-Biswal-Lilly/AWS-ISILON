@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'HCS ISILON External security group for OneFS Cluster'
+Parameters:
+  pVpcId:
+    Description: VPC Id
+    Type: AWS::EC2::VPC::Id
+
+Resources:
+  rISILONExternalSg:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      VpcId: !Ref pVpcId
+      GroupName: 'HCS-ISILON-CLUWE-External-SG'
+      Description: "CLUWE ISILON External Security Group for OneFS Cluster"
+      Tags:
+        - Key: 'Isilon-cluster-name'
+          Value: 'statsclstr5'
