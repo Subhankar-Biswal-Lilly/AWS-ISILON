@@ -11,7 +11,7 @@ Resources:
     Properties:
       VpcId: !Ref pVpcId
       GroupName: 'HCS-ISILON-CLUWE-Internal-SG'
-      Description: "CLUWE ISILON Internal Security Group for OneFS Cluster"
+      GroupDescription: "CLUWE ISILON Internal Security Group for OneFS Cluster"
       Tags:
         - Key: 'Isilon-cluster-name'
           Value: 'statsclstr5'
