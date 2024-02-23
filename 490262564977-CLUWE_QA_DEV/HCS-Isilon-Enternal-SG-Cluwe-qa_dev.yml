@@ -11,7 +11,7 @@ Resources:
     Properties:
       VpcId: !Ref pVpcId
       GroupName: 'HCS-ISILON-CLUWE-External-SG'
-      Description: "CLUWE ISILON External Security Group for OneFS Cluster"
+      GroupDescription: "CLUWE ISILON External Security Group for OneFS Cluster"
       Tags:
         - Key: 'Isilon-cluster-name'
           Value: 'statsclstr4'
