@@ -3,7 +3,7 @@ Description: 'HCS ISILON placement group for OneFS cluster'
 
 Resources:
   rISILONPlacementGroup:
-    Type: 'AWS::EC2::PlacementGroup'
+    Type: AWS::EC2::PlacementGroup
     Properties:
       Strategy: spread
       GroupName: 'statsclstr4-onefs-placement-group'
