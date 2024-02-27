@@ -5,8 +5,8 @@ Resources:
   rISILONPlacementGroup:
     Type: 'AWS::EC2::PlacementGroup'
     Properties:
-      Strategy: 'spread'
-      GroupName: 'vonefs-cfv-onefs-placement-group'
+      Strategy: spread
+      GroupName: 'statsclstr4-onefs-placement-group'
       Tags:
         - Key: 'Isilon-cluster-name'
-          Value: 'vonefs-cfv'
+          Value: 'statsclstr4'
