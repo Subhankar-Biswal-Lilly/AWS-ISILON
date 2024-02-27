@@ -5,7 +5,7 @@ Resources:
   rISILONPlacementGroup:
     Type: 'AWS::EC2::PlacementGroup'
     Properties:
-      Strategy: 'spread'
+      Strategy: spread
       GroupName: 'statsclstr5-onefs-placement-group'
       Tags:
         - Key: 'Isilon-cluster-name'
