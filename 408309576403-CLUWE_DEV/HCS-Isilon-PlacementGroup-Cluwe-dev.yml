@@ -10,3 +10,5 @@ Resources:
       Tags:
         - Key: 'Isilon-cluster-name'
           Value: 'statsclstr5'
+        - Key: 'Restricted'
+          Value: 'Restricted'
