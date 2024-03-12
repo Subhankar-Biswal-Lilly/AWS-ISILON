@@ -15,6 +15,8 @@ Resources:
       Tags:
         - Key: 'Isilon-cluster-name'
           Value: 'statsclstr4'
+        - Key: 'Restricted'
+          Value: 'Restricted'
      SecurityGroupIngress:
           IpProtocol: -1
           CidrIp: 0.0.0.0/0
