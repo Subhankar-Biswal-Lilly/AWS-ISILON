@@ -14,7 +14,7 @@ Resources:
       GroupDescription: "CLUWE ISILON Internal Security Group for OneFS Cluster"
       Tags:
         - Key: 'Isilon-cluster-name'
-          Value: 'statsclstr4'
+          Value: 'statsclstr5'
         - Key: 'Restricted'
           Value: 'Restricted'
      SecurityGroupIngress:
