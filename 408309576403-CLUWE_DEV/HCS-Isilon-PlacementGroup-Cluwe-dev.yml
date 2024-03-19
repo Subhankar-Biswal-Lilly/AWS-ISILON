@@ -2,13 +2,13 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: 'HCS ISILON placement group for OneFS cluster'
 
 Resources:
-  rISILONPlacementGroup:
+  rISILON-PlacementGroup:
     Type: AWS::EC2::PlacementGroup
     Properties:
       Strategy: spread
-      GroupName: 'statsclstr5-onefs-placement-group'
+      GroupName: 'statsclstr6-onefs-placement-group'
       Tags:
         - Key: 'Isilon-cluster-name'
-          Value: 'statsclstr5'
+          Value: 'statsclstr6'
         - Key: 'Restricted'
           Value: 'Restricted'
