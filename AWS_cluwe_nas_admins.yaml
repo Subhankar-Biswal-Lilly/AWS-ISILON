@@ -24,10 +24,7 @@ Resources:
             Condition:
               StringEquals:
                "SAML:aud": "https://signin.aws.amazon.com/saml"
-        Tags:
-          - Key: 'Restricted'
-            Value: 'True'
-
+        
   rCluwenasadminpolicy:
     Type: 'AWS::IAM::Policy'
     Properties:
