@@ -1,0 +1,142 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "HCS Cloud NAS Admins - ISILON"
+Parameters:
+  pSamlProviderAdmin:
+    Type: String
+    Description: SAML Provider Admin
+    Default: "LillyMgmt"
+
+Resources:
+  rCluwenasadminrole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: AWS_cluwe_nas_admins
+      Description: "GIS HCS Role for Managing ISILON"
+      PermissionsBoundary: !Sub "arn:aws:iam::${AWS::AccountId}:policy/LZ-IAM-Boundary"
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated:
+                - !Sub arn:aws:iam::${AWS::AccountId}:saml-provider/${pSamlProviderAdmin}
+            Action: sts:AssumeRoleWithSAML
+            Condition:
+              StringEquals:
+               "SAML:aud": "https://signin.aws.amazon.com/saml"
+        Tags:
+          - Key: 'Restricted'
+            Value: 'True'
+
+  rCluwenasadminpolicy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: "ISILON_Policy"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - "sts:GetCallerIdentity"
+              - "ec2:DescribeVpcs"
+              - "ec2:DescribeVolumes"
+              - "ec2:DescribeTags"
+              - "ec2:DescribeSubnets"
+              - "ec2:DescribeSecurityGroups"
+              - "ec2:DescribeRouteTables"
+              - "ec2:DescribePlacementGroups"
+              - "ec2:DescribeNetworkInterfaces"
+              - "ec2:DescribeInstances"
+              - "ec2:DescribeInstanceTypes"
+              - "ec2:DescribeInstanceAttribute"
+              - "ec2:DescribeAccountAttributes"
+              - "ec2:DeletePlacementGroup"
+              - "ec2:CreateTags"
+            Resource: "*"
+            Sid: ""
+          - Effect: Allow
+            Action: "ec2:DetachNetworkInterface"
+            Resource: "arn:aws:ec2:us-east-2:646670216652:*/*"
+            Sid: ""
+          - Effect: Allow
+            Action:
+              - "ec2:TerminateInstances"
+              - "ec2:RunInstances"
+              - "ec2:ModifyInstanceAttribute"
+              - "ec2:AttachNetworkInterface"
+            Resource: "arn:aws:ec2:us-east-2:646670216652:instance/${ec2:InstanceId}"
+            Sid: ""
+          - Effect: Allow
+            Action:
+              - "ec2:RunInstances"
+              - "ec2:DeleteNetworkInterface"
+              - "ec2:CreateNetworkInterface"
+              - "ec2:AttachNetworkInterface"
+            Resource: "arn:aws:ec2:us-east-2:646670216652:network-interface/${ec2:NetworkInterfaceId}"
+            Sid: ""
+          - Effect: Allow
+            Action:
+              - "ec2:RunInstances"
+              - "ec2:CreatePlacementGroup"
+            Resource: "arn:aws:ec2:us-east-2:646670216652:placement-group/${ec2:PlacementGroupName}"
+            Sid: ""
+          - Effect: Allow
+            Action:
+              - "ec2:AuthorizeSecurityGroupIngress"
+              - "ec2:AuthorizeSecurityGroupEgress"
+            Resource: "arn:aws:ec2:us-east-2:646670216652:security-group-rule/${ec2:SecurityGroupRuleId}"
+            Sid: ""
+          - Effect: Allow
+            Action:
+              - "ec2:RunInstances"
+              - "ec2:RevokeSecurityGroupIngress"
+              - "ec2:RevokeSecurityGroupEgress"
+              - "ec2:DeleteSecurityGroup"
+              - "ec2:CreateSecurityGroup"
+              - "ec2:CreateNetworkInterface"
+              - "ec2:AuthorizeSecurityGroupIngress"
+              - "ec2:AuthorizeSecurityGroupEgress"
+            Resource: "arn:aws:ec2:us-east-2:646670216652:security-group/${ec2:SecurityGroupId}"
+            Sid: ""
+          - Effect: Allow
+            Action:
+              - "ec2:RunInstances"
+              - "ec2:DeleteSubnet"
+              - "ec2:CreateSubnet"
+              - "ec2:CreateNetworkInterface"
+            Resource: "arn:aws:ec2:us-east-2:646670216652:subnet/${ec2:SubnetId}"
+            Sid: ""
+          - Effect: Allow
+            Action: "ec2:RunInstances"
+            Resource: "arn:aws:ec2:us-east-2:646670216652:volume/${ec2:VolumeId}"
+            Sid: ""
+          - Effect: Allow
+            Action:
+              - "ec2:DescribeVpcAttribute"
+              - "ec2:CreateSubnet"
+              - "ec2:CreateSecurityGroup"
+            Resource: "arn:aws:ec2:us-east-2:646670216652:vpc/${ec2:VpcId}"
+            Sid: ""
+          - Effect: Allow
+            Action: "ec2:RunInstances"
+            Resource: "arn:aws:ec2:us-east-2::image/${ec2:ImageId}"
+            Sid: ""
+          - Effect: Allow
+            Action: 'cloudformation:*'
+            Resource: '*'
+          - Effect: Allow
+            Action:
+              - "autoscaling:Describe*"
+              - "cloudwatch:Describe*"
+              - "cloudwatch:Get*"
+              - "cloudwatch:List*"
+              - "logs:Get*"
+              - "logs:CreateExportTask"
+              - "logs:Describe*"
+              - "logs:TestMetricFilter"
+              - "sns:Get*"
+              - "sns:List*"
+            Resource: "*"
+      Roles:
+        - !Ref rCluwenasadminrole
+    
