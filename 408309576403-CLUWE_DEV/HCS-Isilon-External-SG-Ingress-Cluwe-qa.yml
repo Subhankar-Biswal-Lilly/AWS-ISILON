@@ -1,0 +1,180 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'HCS ISILON External security group ingress rules'
+Parameters:
+  pVpcId:
+    Description: VPC Id
+    Type: AWS::EC2::VPC::Id
+
+Resources:
+  rISILONExternalSgIngressRule:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "HCS-ISILON-CLUWE-External-SG-Ingress-Rule"
+      VpcId: !Ref pVpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 22
+          ToPort: 22
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'SSH Port'
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 53
+          ToPort: 53
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'Inbound DNS Port'
+        - IpProtocol: udp
+          CidrIp: 0.0.0.0/0
+          FromPort: 53
+          ToPort: 53
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'Inbound DNS Port'
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 111
+          ToPort: 111
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'rcp.bind port'
+        - IpProtocol: udp
+          CidrIp: 0.0.0.0/0
+          FromPort: 111
+          ToPort: 111
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'rcp.bind port'
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 135
+          ToPort: 135
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'RPC Endpoint mapper service Port'
+        - IpProtocol: udp
+          CidrIp: 0.0.0.0/0
+          FromPort: 135
+          ToPort: 135
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'RPC Endpoint mapper service Port'
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 300
+          ToPort: 300
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'NFSv3 mount service Port'
+        - IpProtocol: udp
+          CidrIp: 0.0.0.0/0
+          FromPort: 300
+          ToPort: 300
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'NFSv3 mount service Port'
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 302
+          ToPort: 302
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'NFS Network Status Monitor (NSM) Port'
+        - IpProtocol: udp
+          CidrIp: 0.0.0.0/0
+          FromPort: 302
+          ToPort: 302
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'NFS Network Status Monitor (NSM) Port'
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 304
+          ToPort: 304
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'NFS Network Lock Manager (NLM) Port'
+        - IpProtocol: udp
+          CidrIp: 0.0.0.0/0
+          FromPort: 304
+          ToPort: 304
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'NFS Network Lock Manager (NLM) Port'
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 305
+          ToPort: 305
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'nfs rpc.quota daemon Port'
+        - IpProtocol: udp
+          CidrIp: 0.0.0.0/0
+          FromPort: 305
+          ToPort: 305
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'nfs rpc.quota daemon Port'
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 443
+          ToPort: 443
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'https Port'
+        - IpProtocol: udp
+          CidrIp: 0.0.0.0/0
+          FromPort: 443
+          ToPort: 443
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'https Port'
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 2049
+          ToPort: 2049
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'NFS Port'
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 8080
+          ToPort: 8080
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'isi_webui  Port'
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 9020
+          ToPort: 9020
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'S3 Service Port'
+        - IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+          FromPort: 9021
+          ToPort: 9021
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          Description: 'S3 Service Port'
+    #SIQ ports
+        - IpProtocol: tcp
+          FromPort: 2097
+          ToPort: 2097
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 2098
+          ToPort: 2098
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 3148
+          ToPort: 3148
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 3149
+          ToPort: 3149
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 5667
+          ToPort: 5667
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 5668
+          ToPort: 5668
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 8470
+          ToPort: 8470
+          SourceSecurityGroupId: sg-077ea4171744b9df8
+          CidrIp: 0.0.0.0/0  
+      Tags:
+        - Key: 'Restricted'
+          Value: 'Restricted'  
+      
