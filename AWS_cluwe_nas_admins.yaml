@@ -47,14 +47,19 @@ Resources:
               - "ec2:DescribeInstanceTypes"
               - "ec2:DescribeInstanceAttribute"
               - "ec2:DescribeAccountAttributes"
-              - "ec2:DeletePlacementGroup"
               - "ec2:CreateTags"
             Resource: "*"
             Sid: ""
+            Condition:
+                    StringEquals:
+                        'aws:ResourceTag/HCSManaged': True
           - Effect: Allow
             Action: "ec2:DetachNetworkInterface"
             Resource: "arn:aws:ec2:us-east-2:646670216652:*/*"
             Sid: ""
+            Condition:
+                    StringEquals:
+                        'aws:ResourceTag/HCSManaged': True
           - Effect: Allow
             Action:
               - "ec2:TerminateInstances"
@@ -63,61 +68,83 @@ Resources:
               - "ec2:AttachNetworkInterface"
             Resource: "arn:aws:ec2:us-east-2:646670216652:instance/${ec2:InstanceId}"
             Sid: ""
+            Condition:
+                    StringEquals:
+                        'aws:ResourceTag/HCSManaged': True
           - Effect: Allow
             Action:
               - "ec2:RunInstances"
-              - "ec2:DeleteNetworkInterface"
               - "ec2:CreateNetworkInterface"
               - "ec2:AttachNetworkInterface"
             Resource: "arn:aws:ec2:us-east-2:646670216652:network-interface/${ec2:NetworkInterfaceId}"
             Sid: ""
+            Condition:
+                    StringEquals:
+                        'aws:ResourceTag/HCSManaged': True
           - Effect: Allow
             Action:
               - "ec2:RunInstances"
               - "ec2:CreatePlacementGroup"
             Resource: "arn:aws:ec2:us-east-2:646670216652:placement-group/${ec2:PlacementGroupName}"
             Sid: ""
+            Condition:
+                    StringEquals:
+                        'aws:ResourceTag/HCSManaged': True
           - Effect: Allow
             Action:
               - "ec2:AuthorizeSecurityGroupIngress"
               - "ec2:AuthorizeSecurityGroupEgress"
             Resource: "arn:aws:ec2:us-east-2:646670216652:security-group-rule/${ec2:SecurityGroupRuleId}"
             Sid: ""
+            Condition:
+                    StringEquals:
+                        'aws:ResourceTag/HCSManaged': True
           - Effect: Allow
             Action:
               - "ec2:RunInstances"
               - "ec2:RevokeSecurityGroupIngress"
               - "ec2:RevokeSecurityGroupEgress"
-              - "ec2:DeleteSecurityGroup"
               - "ec2:CreateSecurityGroup"
               - "ec2:CreateNetworkInterface"
               - "ec2:AuthorizeSecurityGroupIngress"
               - "ec2:AuthorizeSecurityGroupEgress"
             Resource: "arn:aws:ec2:us-east-2:646670216652:security-group/${ec2:SecurityGroupId}"
             Sid: ""
+            Condition:
+                    StringEquals:
+                        'aws:ResourceTag/HCSManaged': True
           - Effect: Allow
             Action:
               - "ec2:RunInstances"
-              - "ec2:DeleteSubnet"
-              - "ec2:CreateSubnet"
               - "ec2:CreateNetworkInterface"
             Resource: "arn:aws:ec2:us-east-2:646670216652:subnet/${ec2:SubnetId}"
             Sid: ""
+            Condition:
+                    StringEquals:
+                        'aws:ResourceTag/HCSManaged': True
           - Effect: Allow
             Action: "ec2:RunInstances"
             Resource: "arn:aws:ec2:us-east-2:646670216652:volume/${ec2:VolumeId}"
             Sid: ""
+            Condition:
+                    StringEquals:
+                        'aws:ResourceTag/HCSManaged': True
           - Effect: Allow
             Action:
               - "ec2:DescribeVpcAttribute"
-              - "ec2:CreateSubnet"
               - "ec2:CreateSecurityGroup"
             Resource: "arn:aws:ec2:us-east-2:646670216652:vpc/${ec2:VpcId}"
             Sid: ""
+            Condition:
+                    StringEquals:
+                        'aws:ResourceTag/HCSManaged': True
           - Effect: Allow
             Action: "ec2:RunInstances"
             Resource: "arn:aws:ec2:us-east-2::image/${ec2:ImageId}"
             Sid: ""
+            Condition:
+                    StringEquals:
+                        'aws:ResourceTag/HCSManaged': True
           - Effect: Allow
             Action: 'cloudformation:*'
             Resource: '*'
@@ -134,6 +161,9 @@ Resources:
               - "sns:Get*"
               - "sns:List*"
             Resource: "*"
+            Condition:
+                    StringEquals:
+                        'aws:ResourceTag/HCSManaged': True
       Roles:
         - !Ref rCluwenasadminrole
     
